@@ -1,0 +1,25 @@
+name: brapi-probe
+on:
+  push:
+    paths: [".github/workflows/brapi-probe.yml", "scripts/brapi_probe.py"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pandas
+      - run: python scripts/brapi_probe.py
+        env:
+          BRAPI_TOKEN: ${{ secrets.BRAPI_TOKEN }}
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git pull --rebase -q || true
+          git add data
+          git commit -m "brapi: teste de cobertura" || echo "sem mudanças"
+          git push
