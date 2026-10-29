@@ -1,5 +1,5 @@
 {
- "token": false,
+ "token": true,
  "results": [
   {
    "ticker": "PETR4",
@@ -119,7 +119,7 @@
    "range": "3mo",
    "rows": 438,
    "first": "2026-07-31 15:00:00",
-   "last": "2026-10-29 17:40:53"
+   "last": "2026-10-29 17:47:40"
   },
   {
    "ticker": "PETR4",
@@ -165,421 +165,479 @@
    "ticker": "PETR4",
    "interval": "15m",
    "range": "2y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1166,
+   "first": "2026-08-31 13:00:00",
+   "last": "2026-10-29 17:55:10"
   },
   {
    "ticker": "PETR4",
    "interval": "15m",
    "range": "1y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1166,
+   "first": "2026-08-31 13:00:00",
+   "last": "2026-10-29 17:55:13"
   },
   {
    "ticker": "PETR4",
    "interval": "15m",
    "range": "6mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1166,
+   "first": "2026-08-31 13:00:00",
+   "last": "2026-10-29 17:55:14"
   },
   {
    "ticker": "PETR4",
    "interval": "15m",
    "range": "3mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1166,
+   "first": "2026-08-31 13:00:00",
+   "last": "2026-10-29 17:55:15"
   },
   {
    "ticker": "PETR4",
    "interval": "15m",
    "range": "1mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 583,
+   "first": "2026-09-29 13:15:00",
+   "last": "2026-10-29 17:45:00"
   },
   {
    "ticker": "PETR4",
    "interval": "15m",
    "range": "5d",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 97,
+   "first": "2026-10-26 14:00:00",
+   "last": "2026-10-29 17:45:00"
   },
   {
    "ticker": "PETR4",
    "interval": "15m",
    "range": "1d",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 46,
+   "first": "2026-10-28 13:15:00",
+   "last": "2026-10-29 17:45:00"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "max",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 3440,
+   "first": "2026-08-31 13:05:00",
+   "last": "2026-10-29 17:55:23"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "5y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 3440,
+   "first": "2026-08-31 13:05:00",
+   "last": "2026-10-29 17:55:24"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "2y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 3440,
+   "first": "2026-08-31 13:05:00",
+   "last": "2026-10-29 17:55:25"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "1y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 3440,
+   "first": "2026-08-31 13:05:00",
+   "last": "2026-10-29 17:55:28"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "6mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 3440,
+   "first": "2026-08-31 13:05:00",
+   "last": "2026-10-29 17:55:29"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "3mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 3440,
+   "first": "2026-08-31 13:05:00",
+   "last": "2026-10-29 17:55:30"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "1mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1743,
+   "first": "2026-09-29 13:15:00",
+   "last": "2026-10-29 18:05:00"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "5d",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 291,
+   "first": "2026-10-26 14:00:00",
+   "last": "2026-10-29 18:00:00"
   },
   {
    "ticker": "PETR4",
    "interval": "5m",
    "range": "1d",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 140,
+   "first": "2026-10-28 13:15:00",
+   "last": "2026-10-29 18:05:00"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "max",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1884,
+   "first": "2026-10-23 13:03:00",
+   "last": "2026-10-29 17:55:38"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "5y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1884,
+   "first": "2026-10-23 13:03:00",
+   "last": "2026-10-29 17:55:38"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "2y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1884,
+   "first": "2026-10-23 13:03:00",
+   "last": "2026-10-29 17:55:40"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "1y",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1884,
+   "first": "2026-10-23 13:03:00",
+   "last": "2026-10-29 17:55:43"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "6mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1884,
+   "first": "2026-10-23 13:03:00",
+   "last": "2026-10-29 17:55:46"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "3mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1884,
+   "first": "2026-10-23 13:03:00",
+   "last": "2026-10-29 17:55:47"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "1mo",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 8661,
+   "first": "2026-09-29 13:19:00",
+   "last": "2026-10-29 18:10:00"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "5d",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 1445,
+   "first": "2026-10-26 14:00:00",
+   "last": "2026-10-29 18:03:00"
   },
   {
    "ticker": "PETR4",
    "interval": "1m",
    "range": "1d",
-   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+   "rows": 691,
+   "first": "2026-10-28 13:19:00",
+   "last": "2026-10-29 18:07:00"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "max",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"max\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00ea"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "5y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"5y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "2y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"2y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "1y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"1y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "6mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"6mo\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "3mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "rows": 63,
+   "first": "2026-07-31 03:00:00",
+   "last": "2026-10-29 03:00:00"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "1mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "rows": 22,
+   "first": "2026-09-29 03:00:00",
+   "last": "2026-10-29 03:00:00"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "5d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "rows": 4,
+   "first": "2026-10-26 03:00:00",
+   "last": "2026-10-29 03:00:00"
   },
   {
    "ticker": "BBAS3",
    "interval": "1d",
    "range": "1d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "rows": 2,
+   "first": "2026-10-28 03:00:00",
+   "last": "2026-10-29 03:00:00"
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "max",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"max\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00ea"
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "5y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"5y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "2y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"2y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "1y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"1y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/"
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "6mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"6mo\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99"
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "3mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1h\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "1mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1h\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "5d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1h\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "1h",
    "range": "1d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1h\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "max",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"max\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00ea"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "5y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"5y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "2y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"2y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "1y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"1y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "6mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"6mo\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "3mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"15m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas)"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "1mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"15m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas)"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "5d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"15m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas)"
   },
   {
    "ticker": "BBAS3",
    "interval": "15m",
    "range": "1d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"15m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas)"
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "max",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"max\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00ea"
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "5y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"5y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "2y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"2y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "1y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"1y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/"
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "6mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"6mo\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99"
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "3mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"5m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "1mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"5m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "5d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"5m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "5m",
    "range": "1d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"5m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "max",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"max\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00ea"
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "5y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"5y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "2y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"2y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Pro (R$ 139,99/m\u00eas"
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "1y",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"1y\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/"
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "6mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O range \\\"6mo\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Ranges permitidos: 1d, 5d, 1mo, 3mo. Fa\u00e7a upgrade para o plano Startup (R$ 119,99"
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "3mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "1mo",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "5d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   },
   {
    "ticker": "BBAS3",
    "interval": "1m",
    "range": "1d",
-   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+   "error": "HTTP 400: {\"error\":true,\"message\":\"O intervalo \\\"1m\\\" n\u00e3o est\u00e1 dispon\u00edvel no seu plano. Intervalos permitidos: 1d. Fa\u00e7a upgrade para o plano Startup (R$ 119,99/m\u00eas) "
   }
  ]
 }
