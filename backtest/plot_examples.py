@@ -1,0 +1,95 @@
+"""Gráficos de exemplo de operações (PETR4 diário) para explicar a regra."""
+import sys, os
+sys.path.insert(0, os.path.dirname(__file__))
+from engine2 import *
+import matplotlib; matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
+
+m = Market(load_tf("PETR4", "1d"), "1d"); d = m.df; s = Sim(m)
+i0 = d.index.searchsorted(pd.Timestamp("2012-01-01"))
+UP, DN, MA1, MA2, ST, AC, FG, MU = "#18794e", "#b4332a", "#2f6fd6", "#a2489d", "#b26b00", "#0b5d7a", "#13202a", "#5a6a77"
+plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10, "axes.edgecolor": "#c9d3da",
+                     "xtick.color": MU, "ytick.color": MU, "axes.labelcolor": FG})
+br = lambda v: f"R$ {v:.2f}".replace(".", ",")
+nf = lambda v: f"{v:.1f}".replace(".", ",")
+pc = lambda r: f"{r*100:+.1f}%".replace(".", ",")
+dt = lambda i: d.index[i].strftime("%d/%m")
+
+def trades(rsi):
+    eq, nt, _ = s.run(Cfg("rev", "both", "both", "any", rsi, "fast", "p3"), i0)
+    t = s.trades(nt); return t[t.side == "C"]
+
+def badge(ax, x, y, n, col):
+    ax.annotate(str(n), (x, y), fontsize=8.5, color="white", fontweight="bold", ha="center", va="center", zorder=9,
+                bbox=dict(boxstyle="circle,pad=0.25", fc=col, ec="none"))
+
+def draw(a, b, trs, title, fn, notes_fn):
+    sl = slice(a, b); x = np.arange(b - a)
+    o, h, l, c = (d[k].values[sl] for k in ("open", "high", "low", "close"))
+    f = plt.figure(figsize=(7.2, 7.6), dpi=150)
+    gs = f.add_gridspec(3, 1, height_ratios=[3.2, 1, 1.25], hspace=.12)
+    ax = f.add_subplot(gs[0]); ar = f.add_subplot(gs[1], sharex=ax); tx = f.add_subplot(gs[2]); tx.axis("off")
+    for i in x:
+        col = UP if c[i] >= o[i] else DN
+        ax.plot([i, i], [l[i], h[i]], color=col, lw=1.1, zorder=2)
+        ax.add_patch(Rectangle((i - .32, min(o[i], c[i])), .64, max(abs(c[i] - o[i]), .012), color=col, zorder=3))
+    ax.plot(x, m.f[sl], color=MA1, lw=1.6, label="MM5"); ax.plot(x, m.s[sl], color=MA2, lw=1.6, label="MM10")
+    lines = []; n = 1
+    span = h.max() - l.min()
+    for _, t in trs.iterrows():
+        E, X = t.ei - a, t.xi - a
+        stop = t.entry_px * .97
+        col = UP if t.ret > 0 else DN
+        ax.axvspan(E - 1 - .45, E - 1 + .45, color=AC, alpha=.09, zorder=0)
+        ax.plot([E - .5, X + .5], [stop, stop], ls="--", color=ST, lw=1.2, zorder=4)
+        ax.scatter([E - .4], [t.entry_px], marker=">", s=55, color=UP, zorder=6)
+        xe = X + .4 if t.why == "sinal" else X
+        ax.scatter([xe], [t.exit_px], marker="o", s=48, facecolor="white", edgecolor=col, lw=2, zorder=7)
+        badge(ax, E - 1, l[E - 1] - span * .06, n, AC)
+        ar.scatter([E - 1], [m.r[t.ei - 1]], color=AC, s=20, zorder=5)
+        badge(ar, E - 1, m.r[t.ei - 1] - 11, n, AC)
+        lines.append(notes_fn(n, t, stop, col)); n += 1
+    ax.set_title(title, loc="left", fontsize=12.5, color=FG, fontweight="bold", pad=10)
+    ax.legend(loc="upper right", frameon=False, fontsize=9); ax.grid(axis="y", color="#e6ebef"); ax.set_ylabel("R$")
+    ax.tick_params(labelbottom=False); ax.margins(y=.14)
+    ax.set_ylim(l.min() - span * .14, h.max() + span * .08)
+    ar.plot(x, m.r[sl], color=AC, lw=1.4); ar.axhline(30, color=DN, ls=":", lw=1); ar.axhline(70, color=UP, ls=":", lw=1)
+    ar.text(x[-1] + .4, 30, "30", color=DN, va="center", fontsize=8); ar.text(x[-1] + .4, 70, "70", color=UP, va="center", fontsize=8)
+    ar.set_ylim(5, 80); ar.set_yticks([30, 50, 70]); ar.set_ylabel("IFR(14)"); ar.grid(axis="y", color="#e6ebef")
+    ar.set_xticks(x[::2]); ar.set_xticklabels([dt(i) for i in range(a, b)][::2])
+    for s_ in (ax, ar):
+        for k in ("top", "right"): s_.spines[k].set_visible(False)
+    leg = "▶ compra na abertura   ○ saída   - - stop 3%   faixa azul = candle do sinal"
+    tx.text(0, .90, leg, fontsize=8.5, color=MU, transform=tx.transAxes, va="top")
+    y = .70
+    for txt, col in lines:
+        tx.text(0, y, txt.replace("$", r"\$"), fontsize=9.2, color=col, transform=tx.transAxes, va="top"); y -= .70 / max(len(lines), 1) if len(lines) > 2 else .38
+    f.savefig(fn, bbox_inches="tight", facecolor="white"); plt.close(f); print(fn)
+
+def note_full(n, t, stop, col):
+    sig = t.ei - 1
+    a = (f"{n}. Sinal {dt(sig)}: fechou {br(d.close.iloc[sig])}, abaixo da MM5 {br(m.f[sig])} e da MM10 {br(m.s[sig])}, IFR {nf(m.r[sig])}.\n"
+         f"   Compra {dt(t.ei)} na abertura a {br(t.entry_px)}, stop em {br(stop)}.\n")
+    if t.why == "sinal":
+        q = t.xi - 1
+        a += f"   {dt(q)} fechou {br(d.close.iloc[q])}, acima da MM5 {br(m.f[q])}: vende {dt(t.xi)} na abertura a {br(t.exit_px)}.  Resultado {pc(t.ret)}"
+    else:
+        a += f"   {dt(t.xi)} a mínima {br(d.low.iloc[t.xi])} furou o stop: vende a {br(t.exit_px)}.  Resultado {pc(t.ret)}"
+    return a, col
+
+def note_short(n, t, stop, col):
+    sig = t.ei - 1
+    w = "sinal (fechou acima da MM5)" if t.why == "sinal" else "stop"
+    return (f"{n}. Sinal {dt(sig)} (IFR {m.r[sig]:.0f}) → compra {dt(t.ei)} a {br(t.entry_px)} → sai {dt(t.xi)} por {w} a {br(t.exit_px)}: {pc(t.ret)}"), col
+
+def fix(s_):  # vírgula decimal sem estragar o ponto final das frases
+    return s_
+
+os.makedirs("report/exemplos", exist_ok=True)
+c30, c0 = trades(30), trades(0)
+g = c30[c30.entry == "2025-06-05"]; p = c30[c30.entry == "2025-04-23"]
+draw(g.ei.iloc[0] - 9, g.xi.iloc[0] + 4, g, "Com IFR · compra com ganho · PETR4 jun/2025", "report/exemplos/1_com_ifr_ganho.png", note_full)
+draw(p.ei.iloc[0] - 9, p.xi.iloc[0] + 4, p, "Com IFR · compra com perda · PETR4 abr/2025", "report/exemplos/2_com_ifr_perda.png", note_full)
+w = c0[(c0.entry >= "2025-05-23") & (c0.entry <= "2025-06-05")]
+draw(w.ei.min() - 4, w.xi.max() + 4, w, "Sem IFR · mesma regra, mesma época · PETR4 mai–jun/2025", "report/exemplos/3_sem_ifr.png", note_short)
