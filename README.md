@@ -41,3 +41,9 @@ python backtest/validate2.py
 - Séries sintéticas sem padrão geraram "vencedoras" tão boas quanto as reais: não há evidência de vantagem além do acaso.
 - Destaques para operar no papel: reversão IFR 30→70 com stop de 1 ATR (bateu o CDI em 7 de 11 ativos no teste), pullback em tendência e tendência com IFR > 60, todas só compradas e com caixa no CDI.
 - Day trade 1h: só 5% das combinações bateram o CDI no teste. 15 e 5 min: só 60 dias de dados, inconclusivo.
+
+### brapi (29/10/2026)
+
+- Plano atual (gratuito com token): só diário e no máximo 3 meses para ativos fora do grupo de teste.
+- Ativos de teste (PETR4, VALE3, ITUB4, MGLU3) liberam tudo: diário desde 2000, 1h desde out/2024, 15 e 5 min só desde 31/08/2026 e 1 min do último mês. Ou seja, mesmo sem limite de plano a brapi não tem mais histórico intradiário que o Yahoo; pagar o Startup/Pro não resolveria a falta de dados para day trade.
+- A coleta diária agora guarda os candles de 1 min da brapi para esses 4 ativos (`data/intraday/*_1m.csv`), acumulando histórico.
