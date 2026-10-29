@@ -24,7 +24,7 @@ ax.plot(idx, d.close.values[b[0]:], color=FG, lw=.8)
 for _, x in t.iterrows():
     ax.axvspan(x.entry, x.exit, color=UP if x.ret > 0 else DN, alpha=.28, lw=0)
 ax.set_yscale("log"); ax.set_ylabel("Preço (R$, log)")
-ax.set_yticks([5, 10, 20, 30, 50]); ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:.0f}"))
+ax.yaxis.set_major_locator(matplotlib.ticker.LogLocator(base=10, subs=(1, 2, 5))); ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"{v:g}".replace(".", ",")))
 ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())
 ax.set_title(f"Acertos e erros · regra F · {T} 2012–2026", loc="left", fontsize=12.5, fontweight="bold", color=FG, pad=10)
 ax.text(.0, 1.0, "faixa verde = operação com lucro · vermelha = com prejuízo · branco = fora, no CDI", transform=ax.transAxes, fontsize=8, color=MU, va="bottom")
