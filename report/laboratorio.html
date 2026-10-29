@@ -1,0 +1,330 @@
+<title>Laboratório autotrade</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: coluna de leitura (veredito → tabelas → achados) e, no fim, o simulador largo com painel de estado */
+:root{--bg:#f4f6f7;--surface:#ffffff;--sunk:#eaeef1;--fg:#13202a;--muted:#5a6a77;--line:#d6dee4;--accent:#0b5d7a;--up:#18794e;--down:#b4332a;--stop:#b26b00;--ma1:#2f6fd6;--ma2:#a2489d;
+--display:"Archivo",system-ui,sans-serif;--body:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1418;--surface:#141f26;--sunk:#0f191f;--fg:#e3ebf0;--muted:#92a3af;--line:#24333c;--accent:#5fb6d6;--up:#45c088;--down:#ef776c;--stop:#e3a63b;--ma1:#6fa3ff;--ma2:#d58ad0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1418;--surface:#141f26;--sunk:#0f191f;--fg:#e3ebf0;--muted:#92a3af;--line:#24333c;--accent:#5fb6d6;--up:#45c088;--down:#ef776c;--stop:#e3a63b;--ma1:#6fa3ff;--ma2:#d58ad0;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.6}
+.wrap{max-width:920px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(27px,5.2vw,40px);font-weight:800;letter-spacing:-.01em}
+h2{font-size:21px;font-weight:700}
+h3{font-size:16px;font-weight:700}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+p{margin:0;max-width:68ch}
+section{display:grid;gap:14px;min-width:0}
+.note{font-size:13px;color:var(--muted)}
+.verdict{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--down);border-radius:6px;padding:16px 18px;display:grid;gap:8px}
+.verdict.ok{border-left-color:var(--up)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;gap:2px}
+.fact b{font-family:var(--mono);font-size:21px;font-variant-numeric:tabular-nums}
+.fact span{font-size:12.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12.5px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px}
+.chip b{font-weight:700}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+td{font-family:var(--mono);font-size:12.5px}
+th{font-weight:600;color:var(--muted);font-size:12px;vertical-align:bottom}
+th:first-child,td:first-child{text-align:left;font-family:var(--body);font-size:13.5px;white-space:normal;min-width:180px}
+tr:last-child td{border-bottom:0}
+.up{color:var(--up)}.down{color:var(--down)}
+td small{display:block;font-family:var(--body);font-size:11.5px;color:var(--muted);white-space:normal;max-width:40ch}
+.bars{display:grid;gap:14px}
+.bargroup{display:grid;gap:4px}
+.bar{display:grid;grid-template-columns:150px 1fr 54px;gap:10px;align-items:center;font-size:13px}
+.bar i{display:block;height:10px;border-radius:2px;background:var(--accent)}
+.bar i.neg{background:var(--down)}
+.bar em{font-style:normal;font-family:var(--mono);font-size:12px;text-align:right}
+.track{background:var(--sunk);border-radius:2px;height:10px;overflow:hidden}
+ul{margin:0;padding-left:20px;display:grid;gap:6px;max-width:68ch}
+/* simulador */
+.lab{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;display:grid;gap:12px;min-width:0}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:end}
+.controls label{display:grid;gap:2px;font-size:11.5px;color:var(--muted);min-width:0}
+select,button,input[type=range]{font:inherit;font-size:13.5px}
+select{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:6px 8px;max-width:100%}
+#sStrat{max-width:min(100%,420px)}
+button{background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:5px;padding:6px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--surface);font-weight:700}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.player{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.player input{flex:1 1 180px;accent-color:var(--accent)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:12px}
+@media (max-width:760px){.cols{grid-template-columns:minmax(0,1fr)}}
+.charts{display:grid;gap:4px;min-width:0}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:5px;vertical-align:middle;background:var(--c)}
+#cPrice{height:330px}#cRsi{height:96px}#cEq{height:130px}
+.panel{display:grid;gap:10px;align-content:start;font-size:13px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-family:var(--mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.state{border-radius:6px;padding:10px 12px;background:var(--sunk);display:grid;gap:4px}
+.state b{font-family:var(--display);font-size:15px}
+.state.long{box-shadow:inset 3px 0 0 var(--up)}.state.short{box-shadow:inset 3px 0 0 var(--down)}
+.event{font-size:12.5px;border-left:2px solid var(--stop);padding-left:8px}
+.log{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:6px}
+.log table{font-size:12px}
+.log td,.log th{padding:5px 8px}
+.log td:first-child,.log th:first-child{min-width:0}
+.sum{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--muted)}
+.sum b{color:var(--fg);font-family:var(--mono);font-weight:600}
+.msg{font-size:13px;color:var(--down)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+<div class="wrap">
+<header style="display:grid;gap:10px">
+<div class="eyebrow">autotrade · 4,6 milhões de backtests · dados até 29/10/2026</div>
+<h1>Médias 5/10 e IFR em todos os timeframes</h1>
+<p>Testei as combinações que você pediu em 11 ativos da B3, do semanal ao gráfico de 5 minutos, com custos, proventos, aluguel, IR e o caixa no CDI ou parado. Cada configuração foi medida em três trechos separados no tempo, e no final da página há um simulador que reproduz as operações candle a candle.</p>
+</header>
+
+<div class="verdict">
+<div class="eyebrow">Veredito</div>
+<p><strong>Nenhuma combinação mostrou vantagem confiável sobre o CDI.</strong> Sem o CDI no caixa, só 3% das combinações diárias ganharam do CDI no período de teste (2023–2026). As que pareciam melhores no passado continuaram, na mediana, abaixo do CDI no futuro. E a mesma grade rodada em preços sintéticos, sem padrão nenhum, produziu "vencedoras" tão boas quanto as reais.</p>
+</div>
+<div class="verdict ok">
+<div class="eyebrow">O que tem algum sinal</div>
+<p>Só comprado, saída pelo IFR ou pela média lenta, stop largo (ATR ou sem stop) e o caixa no Tesouro Selic/CDI. Três regras diárias nessa linha ganharam do CDI no teste em mais da metade dos ativos. A mais parecida com a sua ideia é a <strong>reversão IFR 30→70</strong>: comprar candle vermelho abaixo da MM5 com IFR abaixo de 30 e vender quando o IFR passa de 70. Mesmo ela ganha do CDI por pouco, com queda máxima de 20–35%. Serve para operar no papel, ainda não com dinheiro.</p>
+</div>
+
+<section>
+<h2>O que entrou na grade</h2>
+<p class="note">Todas as combinações abaixo, cruzadas entre si: 86.400 por ativo e timeframe, 54 pares de ativo e timeframe.</p>
+<div class="chips" id="dims"></div>
+<div class="facts" id="facts"></div>
+</section>
+
+<section>
+<h2>Resultado por timeframe</h2>
+<p class="note">"Robustas" são as 20 melhores de cada ativo entre as que ficaram positivas no treino e na validação. A coluna de excesso mostra quanto elas renderam acima (ou abaixo) do CDI no período de teste, na mediana.</p>
+<div class="tbl"><table id="tTf"></table></div>
+<p class="note">Em 15 e 5 minutos há só 60 dias de histórico no Yahoo, então o período de teste tem 3 semanas. Esses números são instáveis e não permitem conclusão. A coleta automática já guarda os novos candles todo dia, e o histórico intradiário vai crescendo.</p>
+</section>
+
+<section>
+<h2>Controle de sorte</h2>
+<p>Criei 6 versões falsas da PETR4, embaralhando blocos de candles reais. Elas têm a mesma volatilidade, mas nenhum padrão aproveitável. Depois rodei nelas a mesma grade diária.</p>
+<div class="tbl"><table id="tNoise"></table></div>
+<p class="note">Se as médias e o IFR captassem algo real, as séries verdadeiras deveriam ir bem melhor que as falsas. Não foram. Com 86 mil tentativas, sempre aparecem regras que parecem ótimas só por acaso.</p>
+</section>
+
+<section>
+<h2>O que ajuda e o que atrapalha</h2>
+<p class="note">Diário, 11 ativos. Sharpe mediano do retorno acima do CDI no teste (2023–26), agrupado por cada escolha. Todos são negativos; o que importa é a comparação entre as opções.</p>
+<div class="bars" id="eff"></div>
+<ul>
+<li><strong>Vender a descoberto piora</strong> no semanal e no diário. O vendido paga proventos e aluguel, e a bolsa tem viés de alta no longo prazo. No gráfico de 1 hora a venda foi um pouco melhor, mas ainda negativa.</li>
+<li><strong>Stop curto destrói o resultado.</strong> Stop de 1% é o pior de todos. Stop de 3% fica no meio. Sem stop ou com stop pelo ATR (volatilidade do ativo) vai melhor.</li>
+<li><strong>Tendência ganha de reversão</strong> quando a regra é aplicada às cegas. A exceção é a reversão com IFR 30 e saída no IFR 70.</li>
+<li><strong>Candle positivo ou negativo e média rápida ou lenta mudam pouco.</strong> São detalhes; o que pesa é a direção, o stop e a saída.</li>
+<li><strong>Várias entradas na mesma direção</strong> pioram na mediana, em todos os timeframes. <strong>CDI no caixa</strong> é a escolha que mais ajuda, porque as estratégias ficam fora do mercado metade do tempo ou mais.</li>
+<li><strong>Day trade</strong>: em 1 hora, só 5% das combinações ganharam do CDI no teste, mesmo com o caixa no CDI, e a melhor regra entre ativos ficou abaixo dele nos 8 ativos. Os custos de entrar e sair em todo pregão pesam muito para movimentos tão curtos.</li>
+</ul>
+</section>
+
+<section>
+<h2>Estratégias de destaque</h2>
+<p class="note">Mediana entre os ativos do timeframe. "Bateu o CDI" é a fração de ativos em que a regra rendeu mais que o CDI no período de teste. Em 15 e 5 minutos, a taxa anualizada vem de apenas 60 dias.</p>
+<div class="tbl"><table id="tShow"></table></div>
+</section>
+
+<section>
+<h2>Simulador das estratégias</h2>
+<p>Escolha timeframe, ativo e estratégia. Use <strong>Replay</strong> para ver o robô operando candle a candle desde o início do período de teste. Cada candle mostra o que ele vê (médias, IFR, posição), as ordens executadas e onde estão o stop e o alvo.</p>
+<div class="lab">
+<div class="controls">
+<label for="sTf">Timeframe<select id="sTf"></select></label>
+<label for="sTk">Ativo<select id="sTk"></select></label>
+<label for="sStrat">Estratégia<select id="sStrat"></select></label>
+</div>
+<div class="note" id="rule"></div>
+<div class="sum" id="sum"></div>
+<div class="player">
+<button id="bStart" class="primary" type="button">Replay do teste</button>
+<button id="bBack" type="button" aria-label="Voltar um candle">◀ 1</button>
+<button id="bPlay" type="button">▶ Tocar</button>
+<button id="bFwd" type="button" aria-label="Avançar um candle">1 ▶</button>
+<button id="bNext" type="button">Próxima operação</button>
+<label for="sSpd" class="note" style="display:flex;gap:4px;align-items:center">Velocidade<select id="sSpd"><option value="1">1×</option><option value="4" selected>4×</option><option value="16">16×</option></select></label>
+<button id="bAll" type="button">Ver tudo</button>
+<input id="rCur" type="range" min="0" max="1" value="1" aria-label="Posição no histórico">
+</div>
+<div class="msg" id="msg" hidden></div>
+<div class="cols">
+<div class="charts">
+<div class="legend"><span style="--c:var(--ma1)">MM5</span><span style="--c:var(--ma2)">MM10</span><span style="--c:var(--stop)">Stop / alvo</span><span style="--c:var(--up)">Entrada</span></div>
+<div id="cPrice"></div>
+<div class="legend"><span style="--c:var(--accent)">IFR(14) · linhas em 30 e 70</span></div>
+<div id="cRsi"></div>
+<div class="legend"><span style="--c:var(--accent)">Patrimônio da estratégia</span><span style="--c:var(--muted)">Comprar e segurar</span></div>
+<div id="cEq"></div>
+</div>
+<div class="panel">
+<div class="eyebrow" id="pDate">—</div>
+<div class="state" id="pState"><b>Fora do mercado</b></div>
+<div class="event" id="pEvent" hidden></div>
+<dl class="kv" id="pKv"></dl>
+<h3>Últimas operações</h3>
+<div class="log"><table id="tLog"></table></div>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Premissas</h2>
+<ul>
+<li>Sinal no fechamento do candle, ordem na abertura do candle seguinte. Stop e alvo dentro do candle; se o candle abre além deles, executa na abertura. Se stop e alvo caem no mesmo candle, conta o stop.</li>
+<li>Custos de 0,03% (B3) mais 0,05% de slippage por lado, corretagem zero. Aluguel de 2% a.a. no vendido em swing.</li>
+<li>Proventos para quem estava posicionado na data-com (90% líquido); o vendido paga 100%. IR de 15% em swing e 20% em day trade, com compensação de prejuízo e sem a isenção de R$&nbsp;20 mil.</li>
+<li>CDI com taxas anuais aproximadas, líquido de 15% de IR; 2026 estimado em 14,5%. Em day trade, a posição zera no último candle do pregão (até 17h).</li>
+<li>Com até 3 entradas, cada entrada usa um terço do patrimônio. Médias de 5 e 10 e IFR de 14 períodos, iguais em todos os timeframes.</li>
+<li>Trechos: diário e semanal em 2012–19 (treino), 2020–22 (validação) e 2023–26 (teste). Intradiário dividido em 50%, 25% e 25% dos pregões disponíveis.</li>
+<li>As estratégias de destaque foram escolhidas olhando treino e validação de todos os ativos. O período de teste não entrou na escolha.</li>
+</ul>
+</section>
+
+<section>
+<h2>Próximos passos</h2>
+<ul>
+<li>Rodar as três regras diárias de destaque no papel, com sinal gerado todo dia pelo GitHub Actions, por 3 a 6 meses antes de pôr dinheiro.</li>
+<li>Repetir o day trade quando houver 6 a 12 meses de candles de 5 e 15 minutos acumulados pela coleta automática.</li>
+<li>Testar uma carteira com vários ativos ao mesmo tempo, em vez de um ativo por vez, para reduzir o tempo parado e a queda máxima.</li>
+</ul>
+</section>
+</div>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+const E={"tfrows": [{"tf": "Semanal (swing)", "per": ["06/01/2012", "03/01/2020", "06/01/2023", "30/10/2026"], "beat0": 0.029535864978902954, "beat1": 0.2655084388185654, "rob_exc": -0.0298863907762299, "rob_beat": 0.16363636363636364, "corr": 0.5702017707678767}, {"tf": "Diário (swing)", "per": ["02/01/2012", "02/01/2020", "02/01/2023", "29/10/2026"], "beat0": 0.03246422558922559, "beat1": 0.19666035353535352, "rob_exc": -0.015097759941020694, "rob_beat": 0.40454545454545454, "corr": 0.16219263245785057}, {"tf": "1 hora (swing)", "per": ["29/11/2023", "16/05/2025", "04/02/2026", "29/10/2026"], "beat0": 0.04381655092592593, "beat1": 0.13697916666666668, "rob_exc": -0.026285070023262413, "rob_beat": 0.34210526315789475, "corr": 0.44664540887604137}, {"tf": "1 hora (day trade)", "per": ["29/11/2023", "16/05/2025", "04/02/2026", "29/10/2026"], "beat0": 0.0006047453703703704, "beat1": 0.05017361111111111, "rob_exc": -0.015371186488613686, "rob_beat": 0.45, "corr": 0.6932880674329343}, {"tf": "15 min (day trade)", "per": ["06/08/2026", "17/09/2026", "08/10/2026", "29/10/2026"], "beat0": 0.13209780092592593, "beat1": 0.19225983796296298, "rob_exc": -0.5311158637286064, "rob_beat": 0.21621621621621623, "corr": 0.16795082090846358}, {"tf": "5 min (day trade)", "per": ["06/08/2026", "17/09/2026", "08/10/2026", "29/10/2026"], "beat0": 0.0580787037037037, "beat1": 0.0802199074074074, "rob_exc": -0.3026238721973014, "rob_beat": 0.4375, "corr": 0.7642603916111496}], "noise": {"pos_test": 0.3002353395061728, "best_train": 0.8554382877732143, "top_train_sharpe_test": 0.259348719710061, "robust_frac": 0.057596450617283954, "robust_test_sharpe": 0.2964155229731204, "robust_beat_cdi": 0.5583333333333333, "p95_test_sharpe": 0.1373027118379591, "real_robust_frac": 0.07579650673400673, "real_best_train": 0.9159180020538098}, "eff": {"mode": {"rev": -1.014, "trend": -0.617}, "entry_ref": {"both": -0.799, "either": -0.818, "fast": -0.807, "slow": -0.813}, "side": {"both": -0.794, "long": -0.445, "short": -1.151}, "candle": {"against": -0.826, "any": -0.788, "with": -0.814}, "rsi_th": {"0": -0.821, "30": -0.882, "40": -0.763, "50": -0.811}, "exit_ref": {"both": -0.815, "either": -0.934, "fast": -0.927, "rsi": -0.602, "slow": -0.818}, "stop": {"atr1": -0.787, "atr2": -0.677, "atr3": -0.667, "none": -0.652, "p1": -1.433, "p2": -0.915, "p3": -0.756, "p5": -0.687}, "tp": {"0": -0.74, "2": -0.887}, "units": {"1": -0.723, "3": -0.899}, "cdi": {"False": -1.217, "True": -0.493}}, "show": [{"tf": "15m", "key": "dt15", "name": "Day trade 15min: reversão IFR 50, candle contra", "rule": "Reversão · compra e venda · entra MM5 · candle contra · IFR 50 · sai IFR 70/30 · sem stop · CDI", "cagr": 0.18290828509309376, "exc": 0.05989944432509464, "test_exc": 0.25594529352290163, "dd": -0.09323757099773372, "beat": 0.5, "trades": 63.0, "win": 0.49986989331251624, "n": 8, "petr": {"final": 9436.378652586329, "after_tax": 9406.499989785425, "cagr": -0.22253381923664606, "dd": -0.1238707388175031, "trades": 63.0, "win": 0.42857142857142855, "test_cagr": -0.429960974819529, "test_cdi": 0.12611645324433374}}, {"tf": "15m", "key": "orig", "name": "Sua regra (IFR 30/70, médias 5/10, stop 3%) · day trade", "rule": "Reversão · compra e venda · entra MM5 e MM10 · qualquer candle · IFR 30 · sai MM5 · stop 3%", "cagr": -0.3322211657668104, "exc": -0.455309546652947, "test_exc": -0.41638634693215804, "dd": -0.1183564683812901, "beat": 0.125, "trades": 57.0, "win": 0.46021303258145363, "n": 8, "petr": {"final": 8184.825847635762, "after_tax": 8184.825847635762, "cagr": -0.5778176432900978, "dd": -0.1874600847719463, "trades": 59.0, "win": 0.3898305084745763, "test_cagr": -0.6099459944052379, "test_cdi": 0.12611645324433374}}, {"tf": "1d", "key": "orig", "name": "Sua regra (IFR 30/70, médias 5/10, stop 3%)", "rule": "Reversão · compra e venda · entra MM5 e MM10 · qualquer candle · IFR 30 · sai MM5 · stop 3%", "cagr": -0.039743049272533804, "exc": -0.12299872393835554, "test_exc": -0.15337390058800093, "dd": -0.45815410799409884, "beat": 0.09090909090909091, "trades": 172.0, "win": 0.45930232558139533, "n": 11, "petr": {"final": 9963.481475336892, "after_tax": 9109.741355102466, "cagr": -0.0002515239595367591, "dd": -0.3855924433810507, "trades": 195.0, "win": 0.4512820512820513, "test_cagr": -0.09746815989859137, "test_cdi": 0.11036607918822172}}, {"tf": "1d", "key": "pull", "name": "Pullback em tendência + CDI", "rule": "Tendência · compra · entra MM5 e MM10 · candle contra · sem IFR · sai MM10 · sem stop · CDI", "cagr": 0.06207006993436526, "exc": -0.021185604731456475, "test_exc": 0.024573042422023628, "dd": -0.4333533212266879, "beat": 0.5454545454545454, "trades": 196.0, "win": 0.375609756097561, "n": 11, "petr": {"final": 108500.03489593891, "after_tax": 98325.47661855894, "cagr": 0.17811180697982798, "dd": -0.4333533212266879, "trades": 204.0, "win": 0.38235294117647056, "test_cagr": 0.18740992127867195, "test_cdi": 0.11036607918822172}}, {"tf": "1d", "key": "revatr", "name": "Reversão IFR 30→70, stop ATR, até 3 entradas + CDI", "rule": "Reversão · compra · entra MM5 · candle contra · IFR 30 · sai IFR 70/30 · stop 1×ATR, até 3 entradas · CDI", "cagr": 0.10849309122135553, "exc": 0.025419835097070465, "test_exc": 0.03415438563586748, "dd": -0.2291071840043286, "beat": 0.6363636363636364, "trades": 95.0, "win": 0.19444444444444445, "n": 11, "petr": {"final": 85076.9982115032, "after_tax": 78435.86922221503, "cagr": 0.15857563157215915, "dd": -0.3400036212271099, "trades": 95.0, "win": 0.25263157894736843, "test_cagr": 0.16430468129101716, "test_cdi": 0.11036607918822172}}, {"tf": "1d", "key": "trifr", "name": "Tendência com IFR > 60 + CDI", "rule": "Tendência · compra · entra MM5 e MM10 · qualquer candle · IFR 40 · sai MM5 e MM10 · sem stop · CDI", "cagr": 0.11385662228926563, "exc": 0.030845654580039295, "test_exc": 0.01864392777125423, "dd": -0.37233575462020063, "beat": 0.5454545454545454, "trades": 131.0, "win": 0.3942307692307692, "n": 11, "petr": {"final": 55996.27741253055, "after_tax": 52034.81288486584, "cagr": 0.1257298886131335, "dd": -0.37233575462020063, "trades": 134.0, "win": 0.39552238805970147, "test_cagr": 0.13575207678092815, "test_cdi": 0.11036607918822172}}, {"tf": "1wk", "key": "orig", "name": "Sua regra (IFR 30/70, médias 5/10, stop 3%)", "rule": "Reversão · compra e venda · entra MM5 e MM10 · qualquer candle · IFR 30 · sai MM5 · stop 3%", "cagr": 0.006684694859641516, "exc": -0.07920745150732333, "test_exc": -0.12944515239652354, "dd": -0.26879639366338626, "beat": 0.0, "trades": 41.0, "win": 0.34146341463414637, "n": 11, "petr": {"final": 11370.045785895265, "after_tax": 11149.577347605635, "cagr": 0.008663483901214741, "dd": -0.2962852502384613, "trades": 54.0, "win": 0.2777777777777778, "test_cagr": 0.0060865747225868905, "test_cdi": 0.11415592113929551}}, {"tf": "1wk", "key": "wk", "name": "Semanal: tendência, candle a favor, sai no IFR 70 + CDI", "rule": "Tendência · compra · entra MM5 ou MM10 · candle a favor · sem IFR · sai IFR 70/30 · stop 1×ATR, alvo 2×stop, até 3 entradas · CDI", "cagr": 0.13629916695836597, "exc": 0.05059416927789551, "test_exc": 0.01866759221671943, "dd": -0.32334075508706395, "beat": 0.5454545454545454, "trades": 228.0, "win": 0.4594594594594595, "n": 11, "petr": {"final": 145383.06744217657, "after_tax": 129650.83302452341, "cagr": 0.1969114162760266, "dd": -0.32334075508706395, "trades": 236.0, "win": 0.461864406779661, "test_cagr": 0.16707886878536815, "test_cdi": 0.11415592113929551}}, {"tf": "5m", "key": "dt5", "name": "Day trade 5min: tendência com IFR, stop 2%", "rule": "Tendência · compra · entra MM5 · qualquer candle · IFR 30 · sai MM5 e MM10 · stop 2% · CDI", "cagr": -0.09598658740962507, "exc": -0.22142761809825906, "test_exc": -0.5068732246277572, "dd": -0.06813209715108953, "beat": 0.125, "trades": 51.5, "win": 0.3301282051282051, "n": 8, "petr": {"final": 10547.442299668455, "after_tax": 10492.85946856677, "cagr": 0.25993189365259384, "dd": -0.0325941537783927, "trades": 58.0, "win": 0.41379310344827586, "test_cagr": 0.28307307641713475, "test_cdi": 0.1282326937976157}}, {"tf": "5m", "key": "orig", "name": "Sua regra (IFR 30/70, médias 5/10, stop 3%) · day trade", "rule": "Reversão · compra e venda · entra MM5 e MM10 · qualquer candle · IFR 30 · sai MM5 · stop 3%", "cagr": -0.7432437056705541, "exc": -0.8689638879878154, "test_exc": -0.8305981697340956, "dd": -0.277043941869794, "beat": 0.0, "trades": 147.0, "win": 0.34891810091701675, "n": 8, "petr": {"final": 7159.904436908149, "after_tax": 7159.904436908149, "cagr": -0.7679615046909691, "dd": -0.3026501345966529, "trades": 157.0, "win": 0.3503184713375796, "test_cagr": -0.6306707413010295, "test_cdi": 0.1282326937976157}}, {"tf": "60m", "key": "dt60", "name": "Day trade 1h: pullback com IFR + CDI", "rule": "Tendência · compra · entra MM5 e MM10 · candle contra · IFR 30 · sai MM5 e MM10 · stop 2×ATR, até 3 entradas · CDI", "cagr": 0.08912427135141898, "exc": -0.021935111171865862, "test_exc": -0.035353200850214095, "dd": -0.012145495563217756, "beat": 0.0, "trades": 78.5, "win": 0.35330948121645794, "n": 8, "petr": {"final": 12757.071547408374, "after_tax": 12757.071547408374, "cagr": 0.08834759538101711, "dd": -0.02534445935266172, "trades": 104.0, "win": 0.34615384615384615, "test_cagr": 0.04839891089853232, "test_cdi": 0.12290318636704356}}, {"tf": "60m", "key": "orig", "name": "Sua regra (IFR 30/70, médias 5/10, stop 3%) · day trade", "rule": "Reversão · compra e venda · entra MM5 e MM10 · qualquer candle · IFR 30 · sai MM5 · stop 3%", "cagr": -0.12737126230830326, "exc": -0.23847686742531132, "test_exc": -0.26423172871750195, "dd": -0.3479223388350667, "beat": 0.0, "trades": 226.0, "win": 0.4571209197936764, "n": 8, "petr": {"final": 7491.157508037613, "after_tax": 7461.26630499097, "cagr": -0.09570767057823715, "dd": -0.29854302107781794, "trades": 241.0, "win": 0.4730290456431535, "test_cagr": -0.04583046136585145, "test_cdi": 0.12290318636704356}}, {"tf": "60m", "key": "sw60", "name": "Swing 1h: pullback compra/venda, stop 3×ATR + CDI", "rule": "Tendência · compra e venda · entra MM5 e MM10 · candle contra · IFR 30 · sai MM10 · stop 3×ATR, alvo 2×stop · CDI", "cagr": 0.1152960031002368, "exc": 0.004213509280090344, "test_exc": -0.007756933518518139, "dd": -0.09692850889647225, "beat": 0.5, "trades": 77.5, "win": 0.381906496660595, "n": 8, "petr": {"final": 13064.22821983492, "after_tax": 12881.481478707688, "cagr": 0.0974032456299494, "dd": -0.08816241245120116, "trades": 92.0, "win": 0.33695652173913043, "test_cagr": -0.026140622556058424, "test_cdi": 0.12290318636704356}}], "per": {"1wk": ["06/01/2012", "03/01/2020", "06/01/2023", "30/10/2026"], "1d": ["02/01/2012", "02/01/2020", "02/01/2023", "29/10/2026"], "60m": ["29/11/2023", "16/05/2025", "04/02/2026", "29/10/2026"], "15m": ["06/08/2026", "17/09/2026", "08/10/2026", "29/10/2026"], "5m": ["06/08/2026", "17/09/2026", "08/10/2026", "29/10/2026"]}};
+const pct=(v,d=1)=>v==null||isNaN(v)?"—":(v*100).toFixed(d).replace(".",",")+"%";
+const sgn=(v,d=1)=>v==null||isNaN(v)?"—":(v>0?"+":"")+pct(v,d);
+const brl=v=>"R$ "+Math.round(v).toLocaleString("pt-BR");
+const cls=v=>v>0?"up":v<0?"down":"";
+const $=id=>document.getElementById(id);
+const DIMS=[["Direção","compra, venda ou as duas"],["Modo","tendência (compra acima) ou reversão (compra abaixo)"],["Médias de entrada","MM5, MM10, as duas ou qualquer uma"],["Candle","positivo, negativo ou indiferente"],["IFR","sem IFR, 30, 40 ou 50"],["Saída","cruzar MM5, MM10, as duas, qualquer uma ou IFR 70/30"],["Stop","sem, 1%, 2%, 3%, 5%, 1, 2 ou 3 ATR"],["Alvo","sem ou 2× o stop"],["Entradas","única ou até 3 na mesma direção"],["Caixa","parado ou no CDI"],["Timeframe","semanal, diário, 1h (swing e day trade), 15 e 5 min"]];
+$("dims").innerHTML=DIMS.map(([a,b])=>`<span class="chip"><b>${a}:</b> ${b}</span>`).join("");
+$("facts").innerHTML=[["4,6 milhões","backtests no total"],["11 ativos","PETR4, VALE3, ITUB4, BBDC4, BBAS3, ABEV3, WEGE3, MGLU3, B3SA3, PRIO3, BOVA11"],["2012–2026","no diário e semanal; 2023–26 no 1h; 60 dias em 15 e 5 min"]].map(([a,b])=>`<div class="fact"><b>${a}</b><span>${b}</span></div>`).join("");
+$("tTf").innerHTML=`<thead><tr><th>Timeframe</th><th>Teste</th><th>Bateram o CDI<br>(caixa parado)</th><th>Bateram o CDI<br>(caixa no CDI)</th><th>Robustas: excesso<br>sobre o CDI</th><th>Robustas que<br>bateram o CDI</th></tr></thead><tbody>`+
+E.tfrows.map(r=>`<tr><td>${r.tf}</td><td>${r.per[2]}–${r.per[3]}</td><td>${pct(r.beat0)}</td><td>${pct(r.beat1)}</td><td class="${cls(r.rob_exc)}">${sgn(r.rob_exc)} a.a.</td><td>${pct(r.rob_beat,0)}</td></tr>`).join("")+"</tbody>";
+const N=E.noise;
+$("tNoise").innerHTML=`<thead><tr><th>Diário, grade completa</th><th>PETR4 e outros reais</th><th>Séries falsas</th></tr></thead><tbody>
+<tr><td>Melhor Sharpe no treino (mediana)</td><td>${N.real_best_train.toFixed(2).replace(".",",")}</td><td>${N.best_train.toFixed(2).replace(".",",")}</td></tr>
+<tr><td>Combinações positivas no treino e na validação</td><td>${pct(N.real_robust_frac)}</td><td>${pct(N.robust_frac)}</td></tr>
+<tr><td>Robustas que bateram o CDI no teste</td><td>${pct(E.tfrows[1].rob_beat,0)}</td><td>${pct(N.robust_beat_cdi,0)}</td></tr></tbody>`;
+const EL={side:["Direção",{long:"Só compra",both:"Compra e venda",short:"Só venda"}],stop:["Stop",{none:"Sem stop",atr3:"3 ATR",atr2:"2 ATR",p5:"5%",atr1:"1 ATR",p3:"3%",p2:"2%",p1:"1%"}],exit_ref:["Saída",{rsi:"IFR 70/30",slow:"MM10",both:"MM5 e MM10",fast:"MM5",either:"MM5 ou MM10"}],mode:["Modo",{trend:"Tendência",rev:"Reversão"}],cdi:["Caixa",{True:"No CDI",False:"Parado"}]};
+const allv=Object.keys(EL).flatMap(k=>Object.values(E.eff[k]));const mx=Math.max(...allv.map(Math.abs));
+$("eff").innerHTML=Object.entries(EL).map(([k,[t,labs]])=>`<div class="bargroup"><div class="eyebrow">${t}</div>`+Object.entries(labs).map(([v,lab])=>{const x=E.eff[k][v];return `<div class="bar"><span>${lab}</span><div class="track"><i class="neg" style="width:${Math.abs(x)/mx*100}%"></i></div><em>${x.toFixed(2).replace(".",",")}</em></div>`}).join("")+"</div>").join("");
+const TFL={"1wk":"Semanal","1d":"Diário","60m":"1 hora","15m":"15 min","5m":"5 min"},ORD=["1wk","1d","60m","15m","5m"];
+const show=[...E.show].sort((a,b)=>ORD.indexOf(a.tf)-ORD.indexOf(b.tf)||(a.key==="orig"?-1:b.key==="orig"?1:0));
+$("tShow").innerHTML=`<thead><tr><th>Estratégia</th><th>TF</th><th>Retorno<br>a.a.</th><th>Teste: excesso<br>sobre o CDI</th><th>Bateu o CDI<br>no teste</th><th>Queda<br>máx.</th><th>Trades</th><th>Acerto</th></tr></thead><tbody>`+
+show.map(s=>`<tr><td>${s.name}<small>${s.rule}</small></td><td>${TFL[s.tf]}</td><td class="${cls(s.cagr)}">${pct(s.cagr)}${["15m","5m"].includes(s.tf)?"*":""}</td><td class="${cls(s.test_exc)}">${sgn(s.test_exc)}</td><td>${s.beat*s.n|0} de ${s.n}</td><td>${pct(s.dd,0)}</td><td>${s.trades|0}</td><td>${pct(s.win,0)}</td></tr>`).join("")+"</tbody>";
+
+/* ---------------- simulador ---------------- */
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+let META=null,D=null,cur=0,timer=null,charts=[],S={},liveLines=[],tfNow="1d",stratNow="revatr";
+const cache={};
+function mk(el,h){return LightweightCharts.createChart(el,{height:h,autoSize:true,layout:{background:{type:"solid",color:css("--surface")},textColor:css("--muted"),fontFamily:"Manrope, system-ui, sans-serif",fontSize:11},
+ grid:{vertLines:{visible:false},horzLines:{color:css("--line")}},rightPriceScale:{borderColor:css("--line")},timeScale:{borderColor:css("--line"),timeVisible:!["1d","1wk"].includes(tfNow),secondsVisible:false},crosshair:{mode:0},handleScroll:true,handleScale:true,
+ localization:{locale:"pt-BR",priceFormatter:p=>p.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})}})}
+function build(){
+ charts.forEach(c=>c.remove());charts=[];
+ const cp=mk($("cPrice"),330),cr=mk($("cRsi"),96),ce=mk($("cEq"),130);charts=[cp,cr,ce];
+ S.candle=cp.addCandlestickSeries({upColor:css("--up"),downColor:css("--down"),borderVisible:false,wickUpColor:css("--up"),wickDownColor:css("--down")});
+ S.f=cp.addLineSeries({color:css("--ma1"),lineWidth:1,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+ S.s=cp.addLineSeries({color:css("--ma2"),lineWidth:1,priceLineVisible:false,lastValueVisible:false,crosshairMarkerVisible:false});
+ S.r=cr.addLineSeries({color:css("--accent"),lineWidth:1,priceLineVisible:false,lastValueVisible:true});
+ [30,70].forEach(v=>S.r.createPriceLine({price:v,color:css("--line"),lineWidth:1,lineStyle:2,axisLabelVisible:false}));
+ S.eq=ce.addLineSeries({color:css("--accent"),lineWidth:2,priceLineVisible:false});
+ S.bh=ce.addLineSeries({color:css("--muted"),lineWidth:1,lineStyle:2,priceLineVisible:false,lastValueVisible:false});
+ let lock=false;
+ charts.forEach(a=>a.timeScale().subscribeVisibleTimeRangeChange(r=>{if(lock||!r)return;lock=true;charts.forEach(b=>{if(b!==a)try{b.timeScale().setVisibleRange(r)}catch(e){}});lock=false}));
+ cp.subscribeCrosshairMove(p=>{if(!D||!p||p.time==null)return;const i=idxOf(p.time);if(i>=0&&i<=cur)panel(i)});
+}
+function idxOf(t){let lo=D.start,hi=D.t.length-1;while(lo<hi){const m=(lo+hi>>1)+1;if(D.t[m]<=t)lo=m;else hi=m-1}return lo}
+async function getData(tk,tf){const k=tk+"_"+tf;if(!cache[k]){const r=await fetch(`data/${k}.json`);if(!r.ok)throw new Error("Não consegui carregar os candles de "+tk+".");cache[k]=await r.json()}return cache[k]}
+function opts(sel,items,val){sel.innerHTML=items.map(([v,l])=>`<option value="${v}">${l}</option>`).join("");if(val&&items.some(x=>x[0]===val))sel.value=val}
+function fillCtl(){const T=META.tfs[$("sTf").value];opts($("sTk"),T.tickers.map(t=>[t,t]),$("sTk").value||"PETR4");opts($("sStrat"),Object.entries(T.strats),stratNow)}
+function bar(i){return{time:D.t[i],open:D.o[i],high:D.h[i],low:D.l[i],close:D.c[i]}}
+function tr(){return D.strats[$("sStrat").value].tr}
+function setAll(n){
+ const a=D.start,st=D.strats[$("sStrat").value];
+ const bars=[],f=[],s=[],r=[];
+ for(let i=a;i<=n;i++){bars.push(bar(i));if(D.f[i])f.push({time:D.t[i],value:D.f[i]});if(D.s[i])s.push({time:D.t[i],value:D.s[i]});r.push({time:D.t[i],value:D.r[i]})}
+ S.candle.setData(bars);S.f.setData(f);S.s.setData(s);S.r.setData(r);
+ const eq=[],bh=[];for(let j=0;j<st.eq.length;j++){const i=a+j*st.eqs;if(i>n)break;eq.push({time:D.t[i],value:st.eq[j]})}
+ for(let j=0;j<D.bh.length;j++){const i=a+j*st.eqs;if(i>n||i>=D.t.length)break;bh.push({time:D.t[i],value:D.bh[j]})}
+ S.eq.setData(eq);S.bh.setData(bh);
+ cur=n;markers();lines();panel(n);$("rCur").value=n;
+}
+function markers(){
+ const m=[];for(const x of tr()){const [ei,xi,sd,ep,xp,p,rt,why]=x;if(ei>cur)break;
+  m.push({time:D.t[ei],position:sd==="C"?"belowBar":"aboveBar",color:css("--up"),shape:sd==="C"?"arrowUp":"arrowDown",text:sd==="C"?"C":"V"});
+  if(xi<=cur)m.push({time:D.t[xi],position:sd==="C"?"aboveBar":"belowBar",color:rt>=0?css("--up"):css("--down"),shape:"circle",text:(rt>0?"+":"")+rt.toFixed(1).replace(".",",")+"%"});}
+ m.sort((a,b)=>a.time-b.time);S.candle.setMarkers(m);
+}
+function openAt(i){return tr().filter(x=>x[0]<=i&&x[1]>i)}
+function lines(){liveLines.forEach(l=>S.candle.removePriceLine(l));liveLines=[];
+ for(const x of openAt(cur)){if(x[8]!=null)liveLines.push(S.candle.createPriceLine({price:x[8],color:css("--stop"),lineWidth:1,lineStyle:2,title:"stop"}));
+  if(x[9]!=null)liveLines.push(S.candle.createPriceLine({price:x[9],color:css("--stop"),lineWidth:1,lineStyle:1,title:"alvo"}));
+  liveLines.push(S.candle.createPriceLine({price:x[3],color:css("--muted"),lineWidth:1,lineStyle:3,title:"entrada"}))}}
+const WHY={"sinal":"sinal de saída","stop":"stop","alvo":"alvo","fim do dia":"fim do pregão (day trade)","fim":"fim dos dados"};
+function fdate(i){const d=new Date(D.t[i]*1000);const dd=d.toLocaleDateString("pt-BR",{timeZone:"UTC"});return ["1d","1wk"].includes(tfNow)?dd:dd+" "+d.toLocaleTimeString("pt-BR",{timeZone:"UTC",hour:"2-digit",minute:"2-digit"})}
+function panel(i){
+ $("pDate").textContent=fdate(i)+(i>=D.split[2]?" · teste":i>=D.split[1]?" · validação":" · treino");
+ const op=openAt(i),c=D.c[i];
+ const st=$("pState");st.className="state";
+ if(op.length){const sd=op[0][2];st.classList.add(sd==="C"?"long":"short");
+  const pl=op.reduce((a,x)=>a+(c-x[3])/x[3]*(sd==="C"?1:-1),0)/op.length;
+  st.innerHTML=`<b>${sd==="C"?"Comprado":"Vendido"}${op.length>1?` · ${op.length} entradas`:""}</b><span>Entrada média R$ ${(op.reduce((a,x)=>a+x[3],0)/op.length).toFixed(2).replace(".",",")}${op[0][8]!=null?` · stop R$ ${op[op.length-1][8].toFixed(2).replace(".",",")}`:""}</span><span>Resultado aberto <b class="${cls(pl)}" style="font-family:var(--mono);font-size:13px">${sgn(pl,2)}</b></span>`;
+ }else st.innerHTML="<b>Fora do mercado</b><span>"+(META.tfs[tfNow].cfg[$("sStrat").value].includes("CDI")?"Esperando sinal, caixa rendendo CDI":"Esperando sinal, caixa parado")+"</span>";
+ const ev=[];for(const x of tr()){if(x[0]>i)break;
+  if(x[0]===i)ev.push(`${x[2]==="C"?"Compra":"Venda"} na abertura a R$ ${x[3].toFixed(2).replace(".",",")} (sinal no fechamento anterior)`);
+  if(x[1]===i)ev.push(`Saída por ${WHY[x[7]]} a R$ ${x[4].toFixed(2).replace(".",",")}: <b class="${cls(x[6])}">${x[6]>0?"+":""}${x[6].toFixed(2).replace(".",",")}%</b> (${brl(x[5])})`);}
+ $("pEvent").hidden=!ev.length;$("pEvent").innerHTML=ev.join("<br>");
+ const rel=(v,ma)=>ma?(v>ma?"acima":"abaixo"):"—";
+ $("pKv").innerHTML=[["Fechamento","R$ "+c.toFixed(2).replace(".",",")],["Candle",c>D.o[i]?'<span class="up">positivo</span>':c<D.o[i]?'<span class="down">negativo</span>':"neutro"],["MM5",(D.f[i]||0).toFixed(2).replace(".",",")+" · "+rel(c,D.f[i])],["MM10",(D.s[i]||0).toFixed(2).replace(".",",")+" · "+rel(c,D.s[i])],["IFR(14)",D.r[i].toFixed(1).replace(".",",")+(D.r[i]<30?" · sobrevendido":D.r[i]>70?" · sobrecomprado":"")],["Patrimônio",brl(eqAt(i))]].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("");
+ const done=tr().filter(x=>x[1]<=i).slice(-12).reverse();
+ $("tLog").innerHTML="<thead><tr><th>Saída</th><th>Lado</th><th>Motivo</th><th>%</th></tr></thead><tbody>"+(done.length?done.map(x=>`<tr><td>${fdate(x[1])}</td><td>${x[2]}</td><td style="font-family:var(--body)">${WHY[x[7]]}</td><td class="${cls(x[6])}">${x[6].toFixed(1).replace(".",",")}</td></tr>`).join(""):'<tr><td colspan="4" style="color:var(--muted)">Nenhuma operação fechada até aqui.</td></tr>')+"</tbody>";
+}
+function eqAt(i){const st=D.strats[$("sStrat").value];const j=Math.max(0,Math.min(st.eq.length-1,Math.floor((i-D.start)/st.eqs)));return st.eq[j]}
+function summary(){
+ const k=$("sStrat").value,t=$("sTk").value,m=META.metrics.find(x=>x.tf===tfNow&&x.ticker===t&&x.key===k),b=META.metrics.find(x=>x.tf===tfNow&&x.ticker===t&&x.key==="bh");
+ $("rule").textContent=META.tfs[tfNow].cfg[k];
+ const ann=["15m","5m"].includes(tfNow)?" (anualizado de 60 dias)":"";
+ $("sum").innerHTML=`<span>R$ 10 mil viraram <b>${brl(m.final)}</b></span><span>após IR <b>${brl(m.after_tax)}</b></span><span>retorno a.a. <b class="${cls(m.cagr)}">${pct(m.cagr)}</b>${ann}</span><span>CDI <b>${pct(m.cdi)}</b></span><span>queda máx. <b>${pct(m.dd,0)}</b></span><span>trades <b>${m.trades}</b></span><span>acerto <b>${pct(m.win,0)}</b></span><span>comprar e segurar <b>${brl(b.final)}</b></span>`;
+}
+async function load(){
+ stop();$("msg").hidden=true;tfNow=$("sTf").value;stratNow=$("sStrat").value||stratNow;
+ try{D=await getData($("sTk").value,tfNow)}catch(e){$("msg").hidden=false;$("msg").textContent=e.message;return}
+ build();summary();
+ $("rCur").min=D.start;$("rCur").max=D.t.length-1;
+ setAll(D.t.length-1);
+ const n=D.t.length;charts[0].timeScale().setVisibleLogicalRange({from:n-D.start-160,to:n-D.start+3});
+}
+function step(k=1){if(cur+k>D.t.length-1){stop();return}
+ for(let j=0;j<k&&cur<D.t.length-1;j++){cur++;S.candle.update(bar(cur));if(D.f[cur])S.f.update({time:D.t[cur],value:D.f[cur]});if(D.s[cur])S.s.update({time:D.t[cur],value:D.s[cur]});S.r.update({time:D.t[cur],value:D.r[cur]});
+  const st=D.strats[$("sStrat").value];if((cur-D.start)%st.eqs===0){const jj=(cur-D.start)/st.eqs;if(st.eq[jj]!=null)S.eq.update({time:D.t[cur],value:st.eq[jj]});if(D.bh[jj]!=null)S.bh.update({time:D.t[cur],value:D.bh[jj]})}}
+ markers();lines();panel(cur);$("rCur").value=cur;
+ const ts=charts[0].timeScale(),lr=ts.getVisibleLogicalRange(),pos=cur-D.start;if(lr&&pos>lr.to-4)ts.setVisibleLogicalRange({from:pos-110,to:pos+12});
+}
+function play(){if(timer){stop();return}$("bPlay").textContent="⏸ Pausar";timer=setInterval(()=>step(+$("sSpd").value),140)}
+function stop(){clearInterval(timer);timer=null;$("bPlay").textContent="▶ Tocar"}
+function jump(n){stop();setAll(n);const p=n-D.start;charts[0].timeScale().setVisibleLogicalRange({from:p-110,to:p+12})}
+$("bStart").onclick=()=>{jump(D.split[2]);play()};
+$("bPlay").onclick=play;$("bFwd").onclick=()=>{stop();step(1)};$("bBack").onclick=()=>jump(Math.max(D.start,cur-1));
+$("bNext").onclick=()=>{const nx=tr().find(x=>x[0]>cur);if(nx)jump(nx[0]);};
+$("bAll").onclick=()=>{jump(D.t.length-1);charts[0].timeScale().fitContent()};
+$("rCur").oninput=e=>{stop();setAll(+e.target.value)};
+$("sTf").onchange=()=>{fillCtl();load()};$("sTk").onchange=load;$("sStrat").onchange=()=>{stratNow=$("sStrat").value;summary();jump(cur)};
+(async()=>{try{const r=await fetch("data/meta.json");META=await r.json()}catch(e){$("msg").hidden=false;$("msg").textContent="Não consegui carregar os dados do simulador.";return}
+ opts($("sTf"),ORD.map(t=>[t,META.tfs[t].label]),"1d");fillCtl();load()})();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(D){const c=cur;build();setAll(c)}});
+</script>
