@@ -1,0 +1,585 @@
+{
+ "token": false,
+ "results": [
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "max",
+   "rows": 6651,
+   "first": "2000-01-03 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "5y",
+   "rows": 1247,
+   "first": "2021-11-01 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "2y",
+   "rows": 498,
+   "first": "2024-10-29 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "1y",
+   "rows": 249,
+   "first": "2025-10-29 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "6mo",
+   "rows": 126,
+   "first": "2026-05-04 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "3mo",
+   "rows": 63,
+   "first": "2026-07-31 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "1mo",
+   "rows": 22,
+   "first": "2026-09-29 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "5d",
+   "rows": 4,
+   "first": "2026-10-26 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1d",
+   "range": "1d",
+   "rows": 2,
+   "first": "2026-10-28 03:00:00",
+   "last": "2026-10-29 03:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "max",
+   "rows": 3463,
+   "first": "2024-10-30 13:00:00",
+   "last": "2026-10-29 17:47:35"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "5y",
+   "rows": 3463,
+   "first": "2024-10-30 13:00:00",
+   "last": "2026-10-29 17:47:35"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "2y",
+   "rows": 3463,
+   "first": "2024-10-30 13:00:00",
+   "last": "2026-10-29 17:47:36"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "1y",
+   "rows": 1729,
+   "first": "2025-10-29 13:00:00",
+   "last": "2026-10-29 17:47:38"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "6mo",
+   "rows": 879,
+   "first": "2026-05-04 13:00:00",
+   "last": "2026-10-29 17:47:38"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "3mo",
+   "rows": 438,
+   "first": "2026-07-31 15:00:00",
+   "last": "2026-10-29 17:40:53"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "1mo",
+   "rows": 151,
+   "first": "2026-09-29 13:00:00",
+   "last": "2026-10-29 17:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "5d",
+   "rows": 25,
+   "first": "2026-10-26 14:00:00",
+   "last": "2026-10-29 17:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1h",
+   "range": "1d",
+   "rows": 12,
+   "first": "2026-10-28 13:00:00",
+   "last": "2026-10-29 17:00:00"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "max",
+   "rows": 1166,
+   "first": "2026-08-31 13:00:00",
+   "last": "2026-10-29 17:47:40"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "5y",
+   "rows": 1166,
+   "first": "2026-08-31 13:00:00",
+   "last": "2026-10-29 17:47:40"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "2y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "1y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "6mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "3mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "1mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "5d",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "15m",
+   "range": "1d",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "max",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "5y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "2y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "1y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "6mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "3mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "1mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "5d",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "5m",
+   "range": "1d",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "max",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "5y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "2y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "1y",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "6mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "3mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "1mo",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "5d",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "PETR4",
+   "interval": "1m",
+   "range": "1d",
+   "error": "HTTP 429: {\"error\":true,\"message\":\"Limite do sandbox excedido. Use um token de API ou tente novamente em instantes.\",\"code\":\"RATE_LIMITED\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "max",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "5y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "2y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "1y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "6mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "3mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "1mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "5d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1d",
+   "range": "1d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "max",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "5y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "2y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "1y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "6mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "3mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "1mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "5d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1h",
+   "range": "1d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "max",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "5y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "2y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "1y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "6mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "3mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "1mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "5d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "15m",
+   "range": "1d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "max",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "5y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "2y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "1y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "6mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "3mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "1mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "5d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "5m",
+   "range": "1d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "max",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "5y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "2y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "1y",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "6mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "3mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "1mo",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "5d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  },
+  {
+   "ticker": "BBAS3",
+   "interval": "1m",
+   "range": "1d",
+   "error": "HTTP 401: {\"error\":true,\"message\":\"Token de autentica\u00e7\u00e3o n\u00e3o fornecido\",\"code\":\"MISSING_TOKEN\"}"
+  }
+ ]
+}
