@@ -1,0 +1,9 @@
+// autotrade · Regra F · SCREENING de SAÍDA (fechou abaixo das duas médias hoje: vender amanhã se estiver comprado)
+var
+  mmR, mmL : Float;
+begin
+  mmR := Media(5, Close);
+  mmL := Media(10, Close);
+  if (Close < mmR) and (Close < mmL) then
+    Select;
+end;

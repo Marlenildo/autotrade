@@ -1,0 +1,17 @@
+// autotrade · Regra F · SCREENING (lista os ativos com sinal de COMPRA no fechamento de hoje)
+input
+  PeriodoRapida(5);
+  PeriodoLenta(10);
+  AfastamentoMinimo(0.5);
+var
+  mmR, mmL : Float;
+begin
+  mmR := Media(PeriodoRapida, Close);
+  mmL := Media(PeriodoLenta, Close);
+  if (mmR > mmL)
+     and (((mmR - mmL) / Close) * 100 >= AfastamentoMinimo)
+     and (Close > mmR) and (Close > mmL)
+     and (Close[1] > mmR[1]) and (Close[1] > mmL[1])
+     and (Close > Open) then
+    Select;
+end;

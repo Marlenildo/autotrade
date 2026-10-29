@@ -1,0 +1,30 @@
+// autotrade · Regra F · estratégia de EXECUÇÃO (backtest e automação)
+// Gráfico diário. Só compra. Uma posição por ativo.
+// Compra: MM5 > MM10, MM5 pelo menos 0,5% acima da MM10,
+//         fechamento de hoje e de ontem acima das duas médias, candle de hoje verde.
+// Venda:  fechamento abaixo das duas médias.
+input
+  PeriodoRapida(5);
+  PeriodoLenta(10);
+  AfastamentoMinimo(0.5);   // em % do preço
+var
+  mmR, mmL : Float;
+begin
+  mmR := Media(PeriodoRapida, Close);
+  mmL := Media(PeriodoLenta, Close);
+
+  if not IsBought then
+  begin
+    if (mmR > mmL)
+       and (((mmR - mmL) / Close) * 100 >= AfastamentoMinimo)
+       and (Close > mmR) and (Close > mmL)
+       and (Close[1] > mmR[1]) and (Close[1] > mmL[1])
+       and (Close > Open) then
+      BuyAtMarket;
+  end
+  else
+  begin
+    if (Close < mmR) and (Close < mmL) then
+      SellToCoverAtMarket;
+  end;
+end;
