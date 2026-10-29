@@ -1,0 +1,26 @@
+name: fetch-data
+on:
+  push:
+    paths: [".github/workflows/fetch-data.yml", "scripts/fetch_data.py"]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 22 * * 1-5"   # dias úteis, após o fechamento
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install yfinance pandas
+      - run: python scripts/fetch_data.py
+        env:
+          BRAPI_TOKEN: ${{ secrets.BRAPI_TOKEN }}
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data
+          git commit -m "dados: atualização automática" || echo "sem mudanças"
+          git push
