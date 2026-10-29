@@ -86,10 +86,61 @@ def note_short(n, t, stop, col):
 def fix(s_):  # vírgula decimal sem estragar o ponto final das frases
     return s_
 
-os.makedirs("report/exemplos", exist_ok=True)
-c30, c0 = trades(30), trades(0)
-g = c30[c30.entry == "2025-06-05"]; p = c30[c30.entry == "2025-04-23"]
-draw(g.ei.iloc[0] - 9, g.xi.iloc[0] + 4, g, "Com IFR · compra com ganho · PETR4 jun/2025", "report/exemplos/1_com_ifr_ganho.png", note_full)
-draw(p.ei.iloc[0] - 9, p.xi.iloc[0] + 4, p, "Com IFR · compra com perda · PETR4 abr/2025", "report/exemplos/2_com_ifr_perda.png", note_full)
-w = c0[(c0.entry >= "2025-05-23") & (c0.entry <= "2025-06-05")]
-draw(w.ei.min() - 4, w.xi.max() + 4, w, "Sem IFR · mesma regra, mesma época · PETR4 mai–jun/2025", "report/exemplos/3_sem_ifr.png", note_short)
+if "sar" not in sys.argv:
+  os.makedirs("report/exemplos", exist_ok=True)
+  c30, c0 = trades(30), trades(0)
+  g = c30[c30.entry == "2025-06-05"]; p = c30[c30.entry == "2025-04-23"]
+  draw(g.ei.iloc[0] - 9, g.xi.iloc[0] + 4, g, "Com IFR · compra com ganho · PETR4 jun/2025", "report/exemplos/1_com_ifr_ganho.png", note_full)
+  draw(p.ei.iloc[0] - 9, p.xi.iloc[0] + 4, p, "Com IFR · compra com perda · PETR4 abr/2025", "report/exemplos/2_com_ifr_perda.png", note_full)
+  w = c0[(c0.entry >= "2025-05-23") & (c0.entry <= "2025-06-05")]
+  draw(w.ei.min() - 4, w.xi.max() + 4, w, "Sem IFR · mesma regra, mesma época · PETR4 mai–jun/2025", "report/exemplos/3_sem_ifr.png", note_short)
+
+
+def draw_sar(a, b, trs, title, fn, mirror_tr=None):
+    """Regra exata do usuário: sempre posicionado, vira a mão quando fecha do outro lado das duas médias."""
+    sl = slice(a, b); x = np.arange(b - a)
+    o, h, l, c = (d[k].values[sl] for k in ("open", "high", "low", "close"))
+    f = plt.figure(figsize=(7.4, 7.0), dpi=150)
+    gs = f.add_gridspec(2, 1, height_ratios=[3.3, 1.1], hspace=.20)
+    ax = f.add_subplot(gs[0]); tx = f.add_subplot(gs[1]); tx.axis("off")
+    for i in x:
+        col = UP if c[i] >= o[i] else DN
+        ax.plot([i, i], [l[i], h[i]], color=col, lw=1.1, zorder=2)
+        ax.add_patch(Rectangle((i - .32, min(o[i], c[i])), .64, max(abs(c[i] - o[i]), .012), color=col, zorder=3))
+    ax.plot(x, m.f[sl], color=MA1, lw=1.6, label="MM5"); ax.plot(x, m.s[sl], color=MA2, lw=1.6, label="MM10")
+    span = h.max() - l.min(); lines = []
+    for n, (_, t) in enumerate(trs.iterrows(), 1):
+        E, X = t.ei - a, t.xi - a
+        if E < 0: continue
+        isL = t.side == "C"; col = UP if isL else DN
+        ax.axvspan(max(E - .5, -.5), min(X - .5, x[-1] + .5), color=col, alpha=.06, zorder=0)
+        ax.scatter([E - .4], [t.entry_px], marker="^" if isL else "v", s=60, color=col, zorder=6)
+        yb = l[E - 1] - span * .07 if isL else h[E - 1] + span * .07
+        badge(ax, E - 1, yb, n, col)
+        res = pc(t.ret) if t.why != "fim" else pc(t.ret) + " (aberta)"
+        side = "Compra" if isL else "Venda"
+        mm = mirror_tr[mirror_tr.ei == t.ei]
+        mirror = pc(mm.ret.iloc[0]) if len(mm) else "—"
+        lines.append((f"{n}. {dt(t.ei - 1)} fechou {'abaixo' if isL else 'acima'} das duas → {side.lower()} {dt(t.ei)} a {br(t.entry_px)} → "
+                      f"{'vira' if t.why == 'sinal' else 'até'} {dt(t.xi)} a {br(t.exit_px)}: {res}   | sentido oposto: {mirror}", UP if t.ret > 0 else DN))
+    ax.set_title(title, loc="left", fontsize=12, color=FG, fontweight="bold", pad=10)
+    ax.legend(loc="upper left", frameon=False, fontsize=9); ax.grid(axis="y", color="#e6ebef"); ax.set_ylabel("R$")
+    ax.set_ylim(l.min() - span * .14, h.max() + span * .14)
+    ax.set_xticks(x[::3]); ax.set_xticklabels([dt(i) for i in range(a, b)][::3])
+    for k in ("top", "right"): ax.spines[k].set_visible(False)
+    tx.text(0, 1.0, "▲ compra   ▼ venda   fundo verde = comprado, vermelho = vendido   número = candle do sinal", fontsize=8.3, color=MU, transform=tx.transAxes, va="top")
+    y = .90
+    for txt, col in lines:
+        tx.text(0, y, txt.replace("$", r"\$"), fontsize=7.9, color=col, transform=tx.transAxes, va="top"); y -= .125
+    f.savefig(fn, bbox_inches="tight", facecolor="white"); plt.close(f); print(fn)
+
+
+if __name__ == "__main__" and "sar" in sys.argv:
+    eq, nt, _ = s.run(Cfg("rev", "both", "both", "any", 0, "both", "none", reverse=True), i0)
+    t = s.trades(nt)
+    a = d.index.searchsorted(pd.Timestamp(sys.argv[2])); b = len(d)
+    w = t[t.xi >= a]
+    w = w[w.ei > a]
+    draw_sar(a, b, w, f"Sua regra exata · PETR4 {d.index[a].strftime('%d/%m')}–{d.index[-1].strftime('%d/%m/%Y')}",
+             "report/exemplos/4_regra_exata_vira_mao.png",
+             mirror_tr=s.trades(s.run(Cfg("trend", "both", "both", "any", 0, "both", "none", reverse=True), i0)[1]))

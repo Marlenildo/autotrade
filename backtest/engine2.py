@@ -93,6 +93,7 @@ class Cfg:
     units: int = 1           # 1 = operação única; >1 = aceita novas entradas na mesma direção
     daytrade: bool = False
     cdi: bool = False
+    reverse: bool = False  # ao sair por sinal, já entra na direção oposta se houver sinal contrário (vira a mão)
 
     def label(self):
         m = {"trend": "Tendência", "rev": "Reversão"}[self.mode]
@@ -104,6 +105,8 @@ class Cfg:
         st = "sem stop" if self.stop == "none" else (f"stop {self.stop[1:]}%" if self.stop[0] == "p" else f"stop {self.stop[3:]}×ATR")
         tp = f", alvo {self.tp:g}×stop" if self.tp else ""
         u = "" if self.units == 1 else f", até {self.units} entradas"
+        if self.reverse:
+            sd += ", vira a mão"
         return f"{m} · {sd} · entra {ref[self.entry_ref]} · {cd} · {r} · sai {ex} · {st}{tp}{u}" + (" · CDI" if self.cdi else "")
 
 
@@ -148,7 +151,7 @@ MAXT = 200000
 
 @njit(cache=True)
 def _sim(o, h, l, c, div, cdi, day_end, atr, L, S, LX, SX, stop_kind, stop_val, tp_mult,
-         max_units, daytrade, use_cdi, fee, slip, btc_bar, div_net, i0, i1, capital,
+         max_units, daytrade, use_cdi, rev_flag, fee, slip, btc_bar, div_net, i0, i1, capital,
          t_ent, t_ex, t_side, t_pnl, t_ret, t_why, t_epx, t_xpx):
     n = i1 - i0 + 1
     eq = np.empty(n)
@@ -172,7 +175,7 @@ def _sim(o, h, l, c, div, cdi, day_end, atr, L, S, LX, SX, stop_kind, stop_val, 
                     else:
                         cash -= v; extra[u] -= v
         # ordens na abertura
-        if pend == 2 and nact > 0:
+        if (pend == 2 or pend == 3 or pend == -3) and nact > 0:
             for u in range(MAXU):
                 if act[u]:
                     px = o[i]; val = qty[u] * px; cost = val * k; tcost += cost
@@ -186,7 +189,13 @@ def _sim(o, h, l, c, div, cdi, day_end, atr, L, S, LX, SX, stop_kind, stop_val, 
                         t_ret[nt] = pnl / (epx[u] * qty[u]); t_why[nt] = 0; t_epx[nt] = epx[u]; t_xpx[nt] = px; nt += 1
                     act[u] = False; extra[u] = 0.0
             nact = 0; pos = 0
-        elif (pend == 1 or pend == -1) and nact < max_units and (pos == 0 or pos == pend):
+        if pend == 3:
+            pend = 1
+        elif pend == -3:
+            pend = -1
+        elif pend == 2:
+            pend = 0
+        if (pend == 1 or pend == -1) and nact < max_units and (pos == 0 or pos == pend):
             px = o[i]
             # tamanho: patrimônio / max_units, limitado ao caixa disponível na compra
             m2m = cash
@@ -262,6 +271,10 @@ def _sim(o, h, l, c, div, cdi, day_end, atr, L, S, LX, SX, stop_kind, stop_val, 
         if i < i1 and not (daytrade and day_end[i]):
             if nact > 0 and ((pos == 1 and LX[i]) or (pos == -1 and SX[i])):
                 pend = 2
+                if rev_flag and pos == 1 and S[i]:
+                    pend = -3
+                elif rev_flag and pos == -1 and L[i]:
+                    pend = 3
             elif L[i] and (pos == 0 or pos == 1):
                 pend = 1
             elif S[i] and (pos == 0 or pos == -1):
@@ -347,7 +360,7 @@ class Sim:
         sk, sv = stop_params(cfg)
         o, h, l, c, div = m.arr
         eq, nt, tcost = _sim(o, h, l, c, div, m.cdi, m.day_end, m.atr, L, S, LX, SX, sk, sv, float(cfg.tp),
-                             cfg.units, cfg.daytrade, cfg.cdi, self.fee, self.slip, self.btc_bar, self.div_net,
+                             cfg.units, cfg.daytrade, cfg.cdi, cfg.reverse, self.fee, self.slip, self.btc_bar, self.div_net,
                              i0, i1, capital, *self.buf)
         return eq, nt, tcost
 
