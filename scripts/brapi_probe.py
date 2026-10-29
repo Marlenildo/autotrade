@@ -1,6 +1,6 @@
 """Testa o que a brapi entrega (com ou sem BRAPI_TOKEN) para cada intervalo e período.
 Grava data/brapi_probe.json e imprime um resumo."""
-import os, json, urllib.request, urllib.error
+import os, json, time, urllib.request, urllib.error
 import pandas as pd
 
 TOK = os.environ.get("BRAPI_TOKEN", "")
@@ -12,6 +12,7 @@ for t in TICKERS:
     for iv in INTERVALS:
         for rg in RANGES:
             url = f"https://brapi.dev/api/quote/{t}?range={rg}&interval={iv}" + (f"&token={TOK}" if TOK else "")
+            time.sleep(1.5)
             row = dict(ticker=t, interval=iv, range=rg)
             try:
                 with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "autotrade"}), timeout=60) as r:

@@ -1,7 +1,5 @@
 name: brapi-probe
 on:
-  push:
-    paths: [".github/workflows/brapi-probe.yml", "scripts/brapi_probe.py"]
   workflow_dispatch:
 permissions:
   contents: write
